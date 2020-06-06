@@ -63,7 +63,33 @@ router.get("/:id", auth, async (req, res) => {
     }
     res.json(post);
   } catch (err) {
-    console.log("error aaivi che bhai");
+    if (err.kind === "ObjectId") {
+      res.status(404).json({ msg: "No post found" });
+    }
+    res.status(500).send("Server Error");
+  }
+});
+
+// @route    DELETE api/posts/:id
+// @desc     Delete post by id
+// @access   Private
+router.delete("/:id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      res.status(404).json({ msg: "No post found" });
+    }
+    //Check User
+    if (post.user.toString() !== req.user.id) {
+      res.status(401).json({ msg: "User not authorized" });
+    }
+    await post.remove();
+    res.json({ msg: "post removed" });
+  } catch (err) {
+    if (err.kind === "ObjectId") {
+      res.status(404).json({ msg: "No post found" });
+    }
+    res.status(500).send("Server Error");
   }
 });
 
