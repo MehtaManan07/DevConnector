@@ -6,28 +6,29 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
-  LOGIN_FAIL
+  LOGIN_FAIL,
+  LOGOUT,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
-// Load user 
+// Load user
 
-export const loaduser = () => async dispatch => {
-  if(localStorage.token) {
-    setAuthToken(localStorage.token)
+export const loaduser = () => async (dispatch) => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
     try {
-      const response = await axios.get('/api/auth')
+      const response = await axios.get("/api/auth");
       dispatch({
         type: USER_LOADED,
-        payload: response.data
-      })
+        payload: response.data,
+      });
     } catch (err) {
       dispatch({
-        type: AUTH_ERROR
-      })
+        type: AUTH_ERROR,
+      });
     }
   }
-}
+};
 
 // Register User
 export const register = ({ name, email, password }) => async (dispatch) => {
@@ -45,7 +46,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
       type: REGISTER_SUCCESS,
       payload: response.data,
     });
-    dispatch(loaduser())
+    dispatch(loaduser());
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -59,7 +60,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
 };
 
 // Login User
-export const login = ( email, password ) => async (dispatch) => {
+export const login = (email, password) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -74,7 +75,7 @@ export const login = ( email, password ) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: response.data,
     });
-    dispatch(loaduser())
+    dispatch(loaduser());
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -85,4 +86,9 @@ export const login = ( email, password ) => async (dispatch) => {
       type: LOGIN_FAIL,
     });
   }
+};
+
+// Logout / Clear profile
+export const logout = () => (dispatch) => {
+  dispatch({type: LOGOUT,})
 };
