@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Route, Redirect, withRouter } from "react-router-dom";
-import Login from '../auth/Login'
+// import Login from '../auth/Login'
 
 const PrivateRoute = ({
   component: Component,
@@ -13,7 +13,7 @@ const PrivateRoute = ({
     {...rest}
     render={(props) =>
       !isAuthenticated && !loading ? (
-        <Login />
+        <Redirect to="/login" />
       ) : (
         <Component {...props} />
       )
@@ -28,4 +28,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default withRouter(connect(mapStateToProps)(PrivateRoute));
+export default connect(mapStateToProps)(PrivateRoute);
