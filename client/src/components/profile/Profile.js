@@ -5,6 +5,7 @@ import { getProfileById } from "../../actions/profile";
 import ProfileTop from './ProfileTop'
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import ProfileAbout from './ProfileAbout'
 const Profile = ({
   match,
   getProfileById,
@@ -32,6 +33,7 @@ const Profile = ({
             )}
             <div className="profile-grid my-1">
                 <ProfileTop profile={profile} />
+                <ProfileAbout profile={profile} />
             </div>
         </Fragment>
       )}
