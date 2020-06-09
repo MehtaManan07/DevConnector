@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
-import { Link, Redirect } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { addExperience } from "../../actions/profile";
 const AddExperience = ({ addExperience, history }) => {
@@ -74,7 +74,7 @@ const AddExperience = ({ addExperience, history }) => {
             <input
               type="checkbox"
               name="current"
-              checked={current}
+              checked={!current}
               value=""
               value={current}
               onChange={(e) => {
@@ -118,4 +118,4 @@ AddExperience.propTypes = {
   addExperience: PropTypes.func.isRequired,
 };
 
-export default connect(null, { addExperience })(AddExperience);
+export default connect(null, { addExperience })(withRouter(AddExperience));
