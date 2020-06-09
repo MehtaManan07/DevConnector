@@ -49,9 +49,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           <i className="fas fa-code" /> DevConnector
         </Link>
       </h1>
-      {
-        <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
-      }
+      {<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>}
     </nav>
   );
 };
