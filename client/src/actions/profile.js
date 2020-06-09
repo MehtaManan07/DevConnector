@@ -30,63 +30,54 @@ export const getCurrentProfile = () => async (dispatch) => {
   }
 };
 
-// Get all profiles
-
-export const getProfiles = () => async (dispatch) => {
+export const getProfiles = () => async dispatch => {
   dispatch({ type: CLEAR_PROFILE });
+
   try {
-    const res = await axios.get("/api/profile");
+    const res = await axios.get('/api/profile');
+
     dispatch({
       type: GET_PROFILES,
-      payload: res.data,
+      payload: res.data
     });
-  } catch (error) {
+  } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
-      },
+      payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
 };
 
-// Get profile by id
-
-export const getProfileById = (userId) => async (dispatch) => {
+// Get profile by ID
+export const getProfileById = userId => async dispatch => {
   try {
     const res = await axios.get(`/api/profile/user/${userId}`);
+
     dispatch({
-      type: GET_PROFILES,
-      payload: res.data,
+      type: GET_PROFILE,
+      payload: res.data
     });
-  } catch (error) {
+  } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
-      },
+      payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
 };
 
-// Get github repos
-
-export const githubRepos = (username) => async (dispatch) => {
+// Get Github repos
+export const getGithubRepos = username => async dispatch => {
   try {
     const res = await axios.get(`/api/profile/github/${username}`);
+
     dispatch({
       type: GET_REPOS,
-      payload: res.data,
+      payload: res.data
     });
-  } catch (error) {
+  } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
-      },
+      payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
 };
