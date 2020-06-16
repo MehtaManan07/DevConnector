@@ -15,7 +15,7 @@ export default (state = initialState, { type, payload }) => {
     case Add_POST:
       return {
         ...state,
-        posts: [...state.posts, payload],
+        posts: [ payload, ...state.posts],
         loading: false
       }
 
