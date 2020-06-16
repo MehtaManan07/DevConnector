@@ -74,7 +74,7 @@ const AddExperience = ({ addExperience, history }) => {
             <input
               type="checkbox"
               name="current"
-              checked={!current}
+              checked={current}
               value={current}
               onChange={(e) => {
                 setFormData({ ...formData, current: !current });
