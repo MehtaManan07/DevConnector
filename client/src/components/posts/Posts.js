@@ -5,6 +5,7 @@ import { getPosts } from "../../actions/post";
 import { useEffect } from "react";
 import PostItem from './PostItem'
 import Spinner from "../layout/Spinner";
+import PostForm from "./PostForm";
 
 const Posts = ({ getPosts, post: { posts, loading } }) => {
   useEffect(() => {
@@ -16,7 +17,7 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
       <p className="lead">
           <i className="fas fa-user"></i> Welcome to the community
       </p>
-      {/* Post form  */}
+      <PostForm /> {/* Add a modal here to create a new post */}
       <div className="posts">
           {posts.map(post => (
               <PostItem key={post._id} post={post} />
