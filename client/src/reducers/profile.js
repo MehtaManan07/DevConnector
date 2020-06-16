@@ -1,4 +1,3 @@
-// A simple reducer
 import {
   GET_PROFILE,
   PROFILE_ERROR,
@@ -9,37 +8,28 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  profile: null, // when logged in, it will load
-  profiles: [], // list of all developers
+  profile: null,
+  profiles: [],
   repos: [],
   loading: true,
-  error: [],
+  error: {},
 };
 
-export default (state = initialState, { type, payload }) => {
+export default function (state = initialState, action) {
+  const { type, payload } = action;
+
   switch (type) {
     case GET_PROFILE:
+    case UPDATE_PROFILE:
       return {
         ...state,
         profile: payload,
-        loading: false,
-      };
-    case GET_REPOS:
-      return {
-        ...state,
-        repos: payload,
         loading: false,
       };
     case GET_PROFILES:
       return {
         ...state,
         profiles: payload,
-        loading: false,
-      };
-    case UPDATE_PROFILE:
-      return {
-        ...state,
-        profile: payload,
         loading: false,
       };
     case PROFILE_ERROR:
@@ -52,11 +42,17 @@ export default (state = initialState, { type, payload }) => {
     case CLEAR_PROFILE:
       return {
         ...state,
-        repos: [],
         profile: null,
+        repos: [],
+        loading: false,
+      };
+    case GET_REPOS:
+      return {
+        ...state,
+        repos: payload,
         loading: false,
       };
     default:
       return state;
   }
-};
+}
